@@ -3,6 +3,7 @@
 // positive `0 0 size size` box so the poster wrapper can place it.
 import { arc as d3arc } from 'd3-shape'
 import type { TreeNodeDatum } from '@shared/types'
+import { canonicalCountryName } from '@shared/placeNormalize'
 import { formatName } from '@/lib/utils'
 import { PRINT, esc, truncate, type ExportContent, type TreeSvg } from './svgKit'
 
@@ -42,7 +43,7 @@ function countryFromPlace(place: string | null | undefined): string | null {
   const raw = place?.trim()
   if (!raw) return null
   const parts = raw.split(',').map((p) => p.trim()).filter(Boolean)
-  return parts.at(-1) ?? null
+  return canonicalCountryName(parts.at(-1))
 }
 
 function countryOf(datum: TreeNodeDatum): string | null {

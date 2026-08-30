@@ -42,17 +42,19 @@ function mk(p: Partial<Person>): Person {
 }
 
 describe('computeDashboard', () => {
-  it('normalizes Brazil country variants in birth and death place buckets', () => {
+  it('normalizes localized country variants in birth and death place buckets', () => {
     const stats = computeDashboard(
       [
         mk({ birthPlace: 'Brasil', deathPlace: 'São José, Santa Catarina, Brasil' }),
-        mk({ birthPlace: 'Brazil', deathPlace: 'São José, Santa Catarina, Brazil' })
+        mk({ birthPlace: 'Brazil', deathPlace: 'São José, Santa Catarina, Brazil' }),
+        mk({ birthPlace: 'Budapest, Magyarország', deathPlace: 'Budapest, Hungary' })
       ],
       []
     )
 
     expect(stats.topBirthPlaces).toContainEqual({ label: 'Brazil', count: 2 })
     expect(stats.topBirthPlaces.find((b) => b.label === 'Brasil')).toBeUndefined()
+    expect(stats.topBirthPlaces).toContainEqual({ label: 'Budapest, Hungary', count: 1 })
     expect(stats.topDeathPlaces).toContainEqual({
       label: 'São José, Santa Catarina, Brazil',
       count: 2

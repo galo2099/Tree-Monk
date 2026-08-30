@@ -2,6 +2,7 @@ import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import type { TreeNodeDatum } from '@shared/types'
+import { canonicalCountryName } from '@shared/placeNormalize'
 import type { FanColorMode, FanSweep } from '@/store/usePedigreeSettings'
 import { formatName } from '@/lib/utils'
 import { chartFontFamily, ensureChartFont } from '@/lib/chartFonts'
@@ -78,7 +79,7 @@ function countryFromPlace(place: string | null | undefined): string | null {
   const raw = place?.trim()
   if (!raw) return null
   const parts = raw.split(',').map((p) => p.trim()).filter(Boolean)
-  return parts.at(-1) ?? null
+  return canonicalCountryName(parts.at(-1))
 }
 
 function countryOf(datum: TreeNodeDatum): string | null {
