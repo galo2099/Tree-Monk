@@ -191,7 +191,6 @@ export function ExportTreeDialog({
     // Fan label font (a bundled, self-hosted face). 'system' leaves the poster
     // default in place; anything else overrides the fan text + embeds the woff2.
     fanFontFamily: ped.fanFont === 'system' ? undefined : chartFontFamily(ped.fanFont),
-    fanColorMode: ped.fanColorMode,
     fanFontFaceCss
   })
 
